@@ -15,4 +15,3 @@ class Player:
 
     def load_player_and_pokemon(self):
         ''
-        
