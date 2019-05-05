@@ -1,6 +1,14 @@
-class pokemon:
+from pokemonNames.pokemonNames import PokemonNames
+
+class Pokemon:
     def __init__(self):
         self.name = ''
+
+    def get_name(self):
+        generator = PokemonNames()
+        pokemon = generator.get_random_name()
+        self.name = pokemon
+        print(self.name)
 
     def tackle(self):
         ''
