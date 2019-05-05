@@ -1,4 +1,6 @@
 from player import Player
+from pokemon import Pokemon
 
-test = Player()
-test.search_for_pokemon()
+while True:
+    player = Player()
+    player.search_for_pokemon()
