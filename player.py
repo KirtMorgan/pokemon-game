@@ -16,8 +16,11 @@ class Player:
             print('Thowing Pokeball!')
             catch = random.randint(0, 100)
             if catch >= 50:
-                new_pokemon = print('You caught a pokemon')
+                poke = Pokemon()
+                poke.get_name()
+                new_pokemon = print('You caught a..', poke.name)
                 self.pokemon_caught.append(new_pokemon)
+                self.save_player_and_pokemon('' , '' , f'{poke.name}')
             elif catch <= 50:
                 print('The pokemon got away, better luck next time')
 
@@ -25,7 +28,7 @@ class Player:
         print('Searching for a pokemon!')
         self.__try_catch_pokemon()
 
-    def save_player_and_pokemon(self, name, city, pokemon_caught):
+    def save_player_and_pokemon(self, name='', city='', pokemon_caught=''):
             try:
                 sql_query_no_transaction(
                     f"INSERT INTO player(name, city, pokemon_caught) VALUES('{name}', '{city}', '{pokemon_caught}');")
