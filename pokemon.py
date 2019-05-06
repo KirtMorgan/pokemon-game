@@ -1,6 +1,6 @@
 from pokemonNames.pokemonNames import PokemonNames
 
-class Pokemon:
+class Pokemon():
     def __init__(self):
         self.name = ''
 
@@ -8,7 +8,6 @@ class Pokemon:
         generator = PokemonNames()
         pokemon = generator.get_random_name()
         self.name = pokemon
-        print(self.name)
 
     def tackle(self):
         ''

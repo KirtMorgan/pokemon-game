@@ -1,31 +1,36 @@
 import random
 from connection_wrapper import *
+from pokemon import Pokemon
 
 
 class Player:
-    def __init__(self, name, city):
+    def __init__(self, name='', city=''):
         self.name = name
         self.city = city
         self.pokemon_caught = []
 
-    def search_for_pokemon(self):
-        print('Searching for a pokemon!')
-        search = random.randint(0,100)
-        print(search)
-        if search >= 50:
-            print('You found a pokemon!')
-        elif search <= 50:
-            print('You didnt find anything this time')
 
     def __try_catch_pokemon(self):
-        ''
+        user_input = input('Would you like to try and catch this pokemon?')
+        if user_input == 'y':
+            print('Thowing Pokeball!')
+            catch = random.randint(0, 100)
+            if catch >= 50:
+                new_pokemon = print('You caught a pokemon')
+                self.pokemon_caught.append(new_pokemon)
+            elif catch <= 50:
+                print('The pokemon got away, better luck next time')
+
+    def search_for_pokemon(self):
+        print('Searching for a pokemon!')
+        self.__try_catch_pokemon()
 
     def save_player_and_pokemon(self, name, city, pokemon_caught):
             try:
                 sql_query_no_transaction(
-                    f"INSERT INTO pokemon(name, city, pokemon_caught) VALUES('{name}', '{city}', '{pokemon_caught}');")
+                    f"INSERT INTO player(name, city, pokemon_caught) VALUES('{name}', '{city}', '{pokemon_caught}');")
                 docker_pokemon.commit()
-                print('The table has been updated, 1 row affected')
+                print('Thank you, i have updated the Safari records with your details')
 
             except Exception as errmsg:
                 print('There has been a error the record has not been committed, please see below exception message')
