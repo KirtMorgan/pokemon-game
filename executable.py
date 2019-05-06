@@ -1,6 +1,8 @@
 from player import Player
 from pokemon import Pokemon
+player = Player()
 
-while True:
-    player = Player()
-    player.search_for_pokemon()
+print('Welcome to the Pokemon Wild Safari!')
+print('Before we get started lets find out who you are adventurer!')
+
+
