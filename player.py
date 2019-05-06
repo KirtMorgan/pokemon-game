@@ -16,11 +16,12 @@ class Player:
             print('Thowing Pokeball!')
             catch = random.randint(0, 100)
             if catch >= 50:
-                poke = Pokemon()
+                poke = Pokemon(self.name)
                 poke.get_name()
                 new_pokemon = print('You caught a..', poke.name)
                 self.pokemon_caught.append(new_pokemon)
                 self.save_player_and_pokemon('' , '' , f'{poke.name}')
+
             elif catch <= 50:
                 print('The pokemon got away, better luck next time')
 
