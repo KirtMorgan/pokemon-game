@@ -13,10 +13,12 @@ print('Welcome to the Pokemon Wild Safari!')
 print('Before we get started lets find out who you are adventurer!')
 new_player()
 print('Now we have that sorted you can enter the park')
-player.search_for_pokemon()
+
 while True:
-    user_input = input('Would you like to search again?')
-    if user_input == 'y':
+    print('What would you like to do?\n1) Search for pokemon\n2) List the pokemon you have caught')
+    user_input = int(input('Your selection >>>'))
+    if user_input == 1:
         player.search_for_pokemon()
-    else:
-        break
+
+    elif user_input == 2:
+        player.load_player_and_pokemon()

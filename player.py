@@ -11,19 +11,17 @@ class Player:
 
 
     def __try_catch_pokemon(self):
-        user_input = input('Would you like to try and catch this pokemon?')
-        if user_input == 'y':
-            print('Thowing Pokeball!')
-            catch = random.randint(0, 100)
-            if catch >= 50:
-                poke = Pokemon(self.name)
-                poke.get_name()
-                new_pokemon = print('You caught a..', poke.name)
-                self.pokemon_caught.append(new_pokemon)
-                self.save_player_and_pokemon('' , '' , f'{poke.name}')
+        print('Thowing Pokeball!')
+        catch = random.randint(0, 100)
+        if catch >= 50:
+            poke = Pokemon(self.name)
+            poke.get_name()
+            new_pokemon = print('You caught a..', poke.name)
+            self.pokemon_caught.append(new_pokemon)
+            self.save_player_and_pokemon('' , '' , f'{poke.name}')
 
-            elif catch <= 50:
-                print('The pokemon got away, better luck next time')
+        elif catch <= 50:
+            print('The pokemon got away, better luck next time')
 
     def search_for_pokemon(self):
         print('Searching for a pokemon!')
@@ -42,10 +40,9 @@ class Player:
 
     def load_player_and_pokemon(self):
         try:
-            player_data = sql_query_no_transaction("SELECT * FROM player")
+            player_data = sql_query_no_transaction("SELECT pokemon_caught FROM player")
             for data in player_data :
-                print(f"Player name: {data.name}\nPlayer City: {data.city}\nPokemon Caught: {data.pokemon_caught}")
-                Player(data.name, data.city)
+                print(f"\nPokemon Caught: {data.pokemon_caught}")
 
         except Exception as errmsg:
             print('There has been a error the record(s) have not been read, please see below exception message')
