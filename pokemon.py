@@ -9,8 +9,7 @@ class Pokemon:
 
     def get_name(self):
         generator = PokemonNames()
-        pokemon = generator.get_random_name()
-        self.name = pokemon
+        self.name = generator.get_random_name()
 
     def tackle(self):
         print('The pokemon runs towards you')
@@ -26,7 +25,7 @@ class Pokemon:
             sql_query_no_transaction(
                 f"INSERT INTO pokemon(name) VALUES('{name}');")
             docker_pokemon.commit()
-            print('The pokemon has been added to the Pokedex')
+            print('The Pokemon has been added to the Pokedex')
 
         except Exception as errmsg:
             print('There has been a error the record has not been committed, please see below exception message')

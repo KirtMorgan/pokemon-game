@@ -13,11 +13,11 @@ class Player:
         print('Thowing Pokeball!')
         catch = random.randint(0, 100)
         if catch >= 50:
-            poke = Pokemon(self.name)
+            poke = Pokemon()
             poke.get_name()
             new_pokemon = print('You caught a..', poke.name)
             self.pokemon_caught.append(new_pokemon)
-            self.save_player_and_pokemon('' , '' , f'{poke.name}')
+            self.save_pokemon_list_to_player(f'{poke.name}')
             poke.save_pokemon(f'{poke.name}')
 
         elif catch <= 50:
@@ -27,10 +27,9 @@ class Player:
         print('Searching for a pokemon!')
         self.__try_catch_pokemon()
 
-    def save_player_and_pokemon(self, name='', city='', pokemon_caught=''):
+    def save_player(self):
             try:
-                sql_query_no_transaction(
-                    f"INSERT INTO player(name, city, pokemon_caught) VALUES('{name}', '{city}', '{pokemon_caught}');")
+                sql_query_no_transaction(f"INSERT INTO player(name, city) VALUES('{self.name}', '{self.city}');")
                 docker_pokemon.commit()
                 print('Thank you, i have updated the Safari records!')
 
@@ -38,9 +37,18 @@ class Player:
                 print('There has been a error the record has not been committed, please see below exception message')
                 print(errmsg)
 
+    def save_pokemon_list_to_player(self, pokemon_name=''):
+        try:
+            sql_query_no_transaction(f"UPDATE player SET pokemon_caught = '{pokemon_name}' WHERE name = '{self.name}';")
+            docker_pokemon.commit()
+
+        except Exception as errmsg:
+            print('There has been a error the record has not been committed, please see below exception message')
+            print(errmsg)
+
     def load_player_and_pokemon(self):
         try:
-            player_data = sql_query_no_transaction("SELECT pokemon_caught FROM player")
+            player_data = sql_query_no_transaction(f"SELECT pokemon_caught FROM player WHERE name = '{self.name}'")
             for data in player_data :
                 print(f"\nPokemon Caught: {data.pokemon_caught}")
 
