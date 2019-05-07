@@ -1,6 +1,9 @@
 from pokemonNames.pokemonNames import PokemonNames
+from connection_wrapper import *
+# __name__
 
-class Pokemon():
+
+class Pokemon:
     def __init__(self, name=''):
         self.name = name
 
@@ -18,8 +21,13 @@ class Pokemon():
     def rest_to_refill_health(self):
         print('The pokemon rests to regain its energy')
 
-    def save_pokemon(self):
-        ''
+    def save_pokemon(self, name):
+        try:
+            sql_query_no_transaction(
+                f"INSERT INTO pokemon(name) VALUES('{name}');")
+            docker_pokemon.commit()
+            print('The pokemon has been added to the Pokedex')
 
-    def load_pokemon(self):
-        ''
+        except Exception as errmsg:
+            print('There has been a error the record has not been committed, please see below exception message')
+            print(errmsg)

@@ -1,14 +1,13 @@
 import random
 from connection_wrapper import *
 from pokemon import Pokemon
-
+# __name__
 
 class Player:
     def __init__(self, name='', city=''):
         self.name = name
         self.city = city
         self.pokemon_caught = []
-
 
     def __try_catch_pokemon(self):
         print('Thowing Pokeball!')
@@ -19,6 +18,7 @@ class Player:
             new_pokemon = print('You caught a..', poke.name)
             self.pokemon_caught.append(new_pokemon)
             self.save_player_and_pokemon('' , '' , f'{poke.name}')
+            poke.save_pokemon(f'{poke.name}')
 
         elif catch <= 50:
             print('The pokemon got away, better luck next time')
@@ -32,7 +32,7 @@ class Player:
                 sql_query_no_transaction(
                     f"INSERT INTO player(name, city, pokemon_caught) VALUES('{name}', '{city}', '{pokemon_caught}');")
                 docker_pokemon.commit()
-                print('Thank you, i have updated the Safari records with your details')
+                print('Thank you, i have updated the Safari records!')
 
             except Exception as errmsg:
                 print('There has been a error the record has not been committed, please see below exception message')

@@ -22,3 +22,6 @@ while True:
 
     elif user_input == 2:
         player.load_player_and_pokemon()
+
+    else:
+        break
