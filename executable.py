@@ -7,9 +7,9 @@ pokemon = Pokemon()
 
 def set_player_name_save():
     input_1 = input('What is your name?')
-    input_2 = input(f'What city are you from {input_1}?')
+    input_2 = input(f'What is your hometown {input_1}?')
     player.name = input_1
-    player.city = input_2
+    player.hometown = input_2
     player.save_player()
 
 
@@ -24,13 +24,13 @@ while True:
     user_input = int(input('Your selection >>>'))
     if user_input == 1:
         player.search_for_pokemon()
-        time.sleep(4)
+        time.sleep(3)
 
     elif user_input == 2:
         player.save_pokemon_list_to_player()
         player.load_player_and_pokemon()
 
     elif user_input == 3:
-        print('You leave the Wild Safari and return home.')
+        print('You leave the Pokemon Wild Safari and return home.')
         print('Thanks for playing!')
         break

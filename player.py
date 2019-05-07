@@ -7,9 +7,9 @@ poke = Pokemon()
 
 
 class Player:
-    def __init__(self, name='', city=''):
+    def __init__(self, name='', hometown=''):
         self.name = name
-        self.city = city
+        self.hometown = hometown
         self.pokemon_caught = []
 
     def __try_catch_pokemon(self):
@@ -34,19 +34,19 @@ class Player:
         self.__try_catch_pokemon()
 
     def save_player(self):
-            try:
-                sql_query_no_transaction(f"INSERT INTO player(name, city) VALUES('{self.name}', '{self.city}');")
-                docker_pokemon.commit()
-                print('Thank you, i have updated the Safari records!')
-
-            except Exception as errmsg:
-                print('There has been a error the record has not been committed, please see below exception message')
-                print(errmsg)
-
-    def save_pokemon_list_to_player(self, pokemon_name=''):
         try:
-            format = ', '
-            pokemon_list = format.join(self.pokemon_caught)
+            sql_query_no_transaction(f"INSERT INTO player(name, city) VALUES('{self.name}', '{self.hometown}');")
+            docker_pokemon.commit()
+            print('Thank you, i have updated the Safari records!')
+
+        except Exception as errmsg:
+            print('There has been a error the record has not been committed, please see below exception message')
+            print(errmsg)
+
+    def save_pokemon_list_to_player(self):
+        try:
+            comma = ', '
+            pokemon_list = comma.join(self.pokemon_caught)
             sql_query_no_transaction(f"UPDATE player SET pokemon_caught = '{pokemon_list}' WHERE name = '{self.name}';")
             docker_pokemon.commit()
 
@@ -57,7 +57,7 @@ class Player:
     def load_player_and_pokemon(self):
         try:
             player_data = sql_query_no_transaction(f"SELECT pokemon_caught FROM player WHERE name = '{self.name}'")
-            for data in player_data :
+            for data in player_data:
                 print(f"\nPokemon Caught: {data.pokemon_caught}")
 
         except Exception as errmsg:
