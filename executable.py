@@ -1,8 +1,6 @@
 from player import Player
-from pokemon import Pokemon
 import time
 player = Player()
-pokemon = Pokemon()
 
 
 def set_player_name_save():
