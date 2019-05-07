@@ -1,7 +1,10 @@
 import random
 from connection_wrapper import *
 from pokemon import Pokemon
+import time
 # __name__
+poke = Pokemon()
+
 
 class Player:
     def __init__(self, name='', city=''):
@@ -10,21 +13,24 @@ class Player:
         self.pokemon_caught = []
 
     def __try_catch_pokemon(self):
-        print('Thowing Pokeball!')
+        poke.get_name()
+        print(f'A wild {poke.name} appeared!')
+        time.sleep(3)
+        print('Throwing Pokeball!')
+        time.sleep(2)
         catch = random.randint(0, 100)
         if catch >= 50:
-            poke = Pokemon()
-            poke.get_name()
+            print(f'Well done, you caught {poke.name}')
             new_pokemon = poke.name
-            print('You caught a..', poke.name)
             self.pokemon_caught.append(new_pokemon)
             poke.save_pokemon(f'{poke.name}')
 
         elif catch <= 50:
-            print('The pokemon got away, better luck next time')
+            print(f'The {poke.name} got away, better luck next time')
 
     def search_for_pokemon(self):
         print('Searching for a pokemon!')
+        time.sleep(2)
         self.__try_catch_pokemon()
 
     def save_player(self):
