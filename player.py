@@ -15,9 +15,9 @@ class Player:
         if catch >= 50:
             poke = Pokemon()
             poke.get_name()
-            new_pokemon = print('You caught a..', poke.name)
+            new_pokemon = poke.name
+            print('You caught a..', poke.name)
             self.pokemon_caught.append(new_pokemon)
-            self.save_pokemon_list_to_player(f'{poke.name}')
             poke.save_pokemon(f'{poke.name}')
 
         elif catch <= 50:
@@ -39,7 +39,9 @@ class Player:
 
     def save_pokemon_list_to_player(self, pokemon_name=''):
         try:
-            sql_query_no_transaction(f"UPDATE player SET pokemon_caught = '{pokemon_name}' WHERE name = '{self.name}';")
+            format = ', '
+            pokemon_list = format.join(self.pokemon_caught)
+            sql_query_no_transaction(f"UPDATE player SET pokemon_caught = '{pokemon_list}' WHERE name = '{self.name}';")
             docker_pokemon.commit()
 
         except Exception as errmsg:

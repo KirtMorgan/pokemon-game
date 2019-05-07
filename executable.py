@@ -24,8 +24,7 @@ while True:
         player.search_for_pokemon()
 
     elif user_input == 2:
+        player.save_pokemon_list_to_player()
         player.load_player_and_pokemon()
 
-    else:
-        #save player and pokemons
-        break
+    else: break
